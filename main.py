@@ -13,7 +13,7 @@ import sys
 import os
 from threading import Timer
 
-SERVO_RANGE = 45   # Konstante für die Winkelanpassung des Servos
+SERVO_RANGE = 90   # Konstante für die Winkelanpassung des Servos
 
 class Speed:        # Klasse, wo alle Funktionen für die Geschwindigkeitsanpassung und Lenkung enthalten sind
     def __init__(self, dev: Controller):
@@ -114,7 +114,7 @@ def main():
             print("Servowinkel 1: ", deg)
 
         if event.code == dev.ABS_RSX:   # Zuordnung des rechten Joysticks, der für die Lenkung zuständig ist.
-            deg = event.value / dev.max_value_stick * SERVO_RANGE + SERVO_RANGE
+            deg = event.value / dev.min_value_stick * SERVO_RANGE + SERVO_RANGE
             servo2.servo_write(deg)
             print("Servowinkel 2: ", deg)
 
