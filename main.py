@@ -27,32 +27,32 @@ class Speed:        # Klasse, wo alle Funktionen für die Geschwindigkeitsanpass
         self.esc2 = Esc(gpio = 24, pw_stop = 1500, pw_min = 1200, pw_max = 1800)   # Objekt der Klasse Esc erstellen
 
     def update(self, event):
-        if event.code == self.dev.ABS_LSY:   # Zuordnung des linken Joysticks, der die Beschleunigung anpasst
+        if event.code == self.dev.ABS_LSY:   # Zuordnung des linken Joysticks, der die Beschleunigung für Motor1 anpasst
             stick_value = - event.value / self.dev.max_value_stick
             max_speed = self.esc1.pw_stop - self.esc1.pw_min if stick_value < 0 else self.esc1.pw_max - self.esc1.pw_stop
             self.speed_P1 = stick_value * max_speed + self.esc1.pw_stop
             if self.speed_P1 >= 1450 and self.speed_P1 <= 1550:
                 self.speed_P1 = 1500
 
-        if event.code == self.dev.ABS_LSY:   # Zuordnung des linken Joysticks, der die Beschleunigung anpasst
+        if event.code == self.dev.ABS_LSY:   # Zuordnung des linken Joysticks, der die Beschleunigung für Motor2 anpasst
             stick_value = - event.value / self.dev.max_value_stick
             max_speed = self.esc2.pw_stop - self.esc2.pw_min if stick_value < 0 else self.esc2.pw_max - self.esc2.pw_stop
             self.speed_P2 = stick_value * max_speed + self.esc2.pw_stop
             if self.speed_P2 >= 1450 and self.speed_P2 <= 1550:
                 self.speed_P2 = 1500
 
-        if event.code == self.dev.ABS_LT:   # Zuordnung des linken Triggers, um Lenkung zu verursachen
+        if event.code == self.dev.ABS_LT:   # Zuordnung des linken Triggers, um Lenkung nach oben und unten zu verursachen
             trigger_value = event.value / self.dev.max_value_trigger
             self.LT_value = trigger_value
             print("Trigger 1 ", trigger_value)
 
-        if event.code == self.dev.ABS_RT:   # Zuordnung des rechten Triggers, um Lenkung zu verursachen
+        if event.code == self.dev.ABS_RT:   # Zuordnung des rechten Triggers, um Lenkung nach oben und unten zu verursachen
             trigger_value = event.value / self.dev.max_value_trigger
             self.RT_value = trigger_value
             print("Trigger 2 ", trigger_value)
 
         
-    def write_speed(self):      # Funktion, um die Geschwindigkeit anzupassen
+    def write_speed(self):      # Funktion, um die Geschwindigkeit zu berechnen
         speed1 = self.speed_P1 - self.LT_value * (self.speed_P1 - self.esc1.pw_stop)
         self.esc1.esc_write(int(speed1), True)
 
