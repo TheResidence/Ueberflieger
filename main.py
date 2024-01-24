@@ -30,14 +30,14 @@ class Speed:        # Klasse, wo alle Funktionen für die Geschwindigkeitsanpass
         if event.code == self.dev.ABS_LSY:   # Zuordnung des linken Joysticks, der die Beschleunigung für Motor1 anpasst
             stick_value = - event.value / self.dev.max_value_stick
             max_speed = self.esc1.pw_stop - self.esc1.pw_min if stick_value < 0 else self.esc1.pw_max - self.esc1.pw_stop
-            self.speed_P1 = stick_value * max_speed + self.esc1.pw_stop
+            self.speed_P1 = (stick_value * max_speed) + self.esc1.pw_stop
             if self.speed_P1 >= 1450 and self.speed_P1 <= 1550:
                 self.speed_P1 = 1500
 
         if event.code == self.dev.ABS_LSY:   # Zuordnung des linken Joysticks, der die Beschleunigung für Motor2 anpasst
             stick_value = - event.value / self.dev.max_value_stick
             max_speed = self.esc2.pw_stop - self.esc2.pw_min if stick_value < 0 else self.esc2.pw_max - self.esc2.pw_stop
-            self.speed_P2 = stick_value * max_speed + self.esc2.pw_stop
+            self.speed_P2 = (stick_value * max_speed) + self.esc2.pw_stop
             if self.speed_P2 >= 1450 and self.speed_P2 <= 1550:
                 self.speed_P2 = 1500
 
