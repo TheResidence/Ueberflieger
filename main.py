@@ -59,7 +59,7 @@ class Speed:        # Klasse, wo alle Funktionen für die Geschwindigkeitsanpass
         speed2 = self.speed_P2 - self.RT_value * (self.speed_P2 - self.esc2.pw_stop)
         self.esc2.esc_write(int(speed2), True)
 
-        print("Speed: ", speed1, " ", speed2)
+        print("Speed1: ", speed1, "   Speed2: ", speed2)
 
 button_timer = {}
 
