@@ -88,8 +88,8 @@ def main():
 
     print("Connecting controller...")
     dev = Controller()
-
     speed_controller = Speed(dev)
+    print("Controller connected")
 
     for event in dev.dev.read_loop():
         if event.code == dev.BTN_START: # Zuordnung des Start-Knopfs, der den Pi restartet
